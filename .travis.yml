@@ -7,6 +7,19 @@ cache: cargo
 matrix:
   allow_failures:
     - rust: nightly
+  include:
+    - rust: nightly-2017-09-20
+      env: CLIPPY_AND_COMPILE_TESTS=YESPLEASE
+      script:
+        - cargo build --features "lint"
+    - rust: nightly-2017-09-20
+      env: RUSTFMT=YESPLEASE
+      script:
+        - |
+          if ! [ -x "$(command -v rustfmt)" ]; then
+            cargo install rustfmt-nightly --vers 0.2.7
+          fi
+        - cargo fmt --all -- --write-mode=diff
 before_script:
   - mkdir -p tmp
   - echo "DATABASE_URL=tmp/test.db" > .env
