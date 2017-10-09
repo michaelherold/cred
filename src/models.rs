@@ -23,14 +23,14 @@ pub struct NewCredential<'a> {
 impl fmt::Display for Credential {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         if self.name != self.url {
-            write!(f, "{} -- {}\n", self.name, self.url);
+            write!(f, "{} -- {}\n", self.name, self.url).unwrap();
         } else {
-            write!(f, "{}\n", self.name);
+            write!(f, "{}\n", self.name).unwrap();
         }
 
         match self.username {
-            Some(ref username) => { write!(f, "  Username: {}\n", username); },
-            None => { write!(f, ""); },
+            Some(ref username) => { write!(f, "  Username: {}\n", username).unwrap(); },
+            None => { },
         };
 
         match self.password {
