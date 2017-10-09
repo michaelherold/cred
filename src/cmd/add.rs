@@ -50,8 +50,5 @@ pub fn command(conn: &SqliteConnection, args: &ArgMatches) {
 
     create_credential(conn, &new_credential);
 
-    println!("Name: {}", name);
-    println!("URL: {}", url);
-    println!("Username: {}", username);
-    println!("Password: {}", password);
+    println!("\nSaved credential for {}", name);
 }

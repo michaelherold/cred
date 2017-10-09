@@ -16,6 +16,7 @@ use dotenv::dotenv;
 use std::env;
 
 use cmd::add::command as add_credential;
+use cmd::list::command as list_credentials;
 
 fn establish_connection() -> SqliteConnection {
     dotenv().ok();
@@ -26,11 +27,12 @@ fn establish_connection() -> SqliteConnection {
 }
 
 fn main() {
-    let connection = establish_connection();
+    let conn = establish_connection();
     let matches = cli::build_cli().get_matches();
 
     match matches.subcommand() {
-        ("add", Some(matches)) => add_credential(&connection, matches),
+        ("add", Some(matches)) => add_credential(&conn, matches),
+        ("list", Some(matches)) => list_credentials(&conn, matches),
         _ => unreachable!("The CLI parser should prevent this from happening.")
     }
 }

@@ -1,3 +1,5 @@
+use std::fmt;
+
 use super::schema::credentials;
 
 #[derive(Queryable)]
@@ -16,4 +18,24 @@ pub struct NewCredential<'a> {
     pub url: &'a str,
     pub username: &'a str,
     pub password: &'a str,
+}
+
+impl fmt::Display for Credential {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        if self.name != self.url {
+            write!(f, "{} -- {}\n", self.name, self.url);
+        } else {
+            write!(f, "{}\n", self.name);
+        }
+
+        match self.username {
+            Some(ref username) => { write!(f, "  Username: {}\n", username); },
+            None => { write!(f, ""); },
+        };
+
+        match self.password {
+            Some(ref password) => write!(f, "  Password: {}\n", password),
+            None => write!(f, ""),
+        }
+    }
 }
