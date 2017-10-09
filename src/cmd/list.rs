@@ -29,7 +29,7 @@ pub fn command(conn: &SqliteConnection, args: &ArgMatches) {
 
     let credentials = match query {
         Some(q) => search_credentials(conn, q),
-        None => list_all_credentials(conn)
+        None => list_all_credentials(conn),
     };
 
     println!("Listing {} credentials\n", credentials.len());

@@ -1,5 +1,5 @@
-#![cfg_attr(feature="clippy", feature(plugin))]
-#![cfg_attr(feature="clippy", plugin(clippy))]
+#![cfg_attr(feature = "clippy", feature(plugin))]
+#![cfg_attr(feature = "clippy", plugin(clippy))]
 
 extern crate clap;
 #[macro_use]
@@ -36,6 +36,6 @@ fn main() {
     match matches.subcommand() {
         ("add", Some(matches)) => add_credential(&conn, matches),
         ("list", Some(matches)) => list_credentials(&conn, matches),
-        _ => unreachable!("The CLI parser should prevent this from happening.")
+        _ => unreachable!("The CLI parser should prevent this from happening."),
     }
 }

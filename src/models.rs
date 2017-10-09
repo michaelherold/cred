@@ -29,8 +29,10 @@ impl fmt::Display for Credential {
         }
 
         match self.username {
-            Some(ref username) => { write!(f, "  Username: {}\n", username).unwrap(); },
-            None => { },
+            Some(ref username) => {
+                write!(f, "  Username: {}\n", username).unwrap();
+            }
+            None => {}
         };
 
         match self.password {

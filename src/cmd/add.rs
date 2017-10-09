@@ -14,8 +14,8 @@ fn get_input(prompt: &str) -> String {
     io::stdout().flush().unwrap();
 
     match io::stdin().read_line(&mut input) {
-        Ok(_) => { input.trim().to_string() }
-        Err(_) => { "".to_string() }
+        Ok(_) => input.trim().to_string(),
+        Err(_) => "".to_string(),
     }
 }
 
@@ -31,7 +31,7 @@ fn create_credential(conn: &SqliteConnection, new_credential: &NewCredential) ->
 fn value_or_input<'a>(value: Option<&'a str>, prompt: &'a str) -> String {
     match value {
         Some(v) => v.to_string(),
-        None => get_input(prompt)
+        None => get_input(prompt),
     }
 }
 
@@ -45,7 +45,7 @@ pub fn command(conn: &SqliteConnection, args: &ArgMatches) {
         url: url,
         name: name,
         username: &username,
-        password: &password
+        password: &password,
     };
 
     create_credential(conn, &new_credential);
