@@ -1,0 +1,14 @@
+language: rust
+rust:
+  - stable
+  - beta
+  - nightly
+cache: cargo
+matrix:
+  allow_failures:
+    - rust: nightly
+before_script:
+  - mkdir -p tmp
+  - echo "DATABASE_URL=tmp/test.db" > .env
+  - which diesel >/dev/null 2>&1 || cargo install diesel_cli
+  - diesel migration run
