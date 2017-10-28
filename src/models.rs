@@ -28,12 +28,9 @@ impl fmt::Display for Credential {
             write!(f, "{}\n", self.name).unwrap();
         }
 
-        match self.username {
-            Some(ref username) => {
-                write!(f, "  Username: {}\n", username).unwrap();
-            }
-            None => {}
-        };
+        if let Some(ref username) = self.username {
+            write!(f, "  Username: {}\n", username).unwrap();
+        }
 
         match self.password {
             Some(ref password) => write!(f, "  Password: {}\n", password),
