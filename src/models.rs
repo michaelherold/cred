@@ -16,8 +16,8 @@ pub struct Credential {
 pub struct NewCredential<'a> {
     pub name: &'a str,
     pub url: &'a str,
-    pub username: &'a str,
-    pub password: &'a str,
+    pub username: Option<String>,
+    pub password: Option<String>,
 }
 
 impl fmt::Display for Credential {

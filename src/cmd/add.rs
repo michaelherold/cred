@@ -7,15 +7,15 @@ use diesel::prelude::*;
 
 use super::super::models::NewCredential;
 
-fn get_input(prompt: &str) -> String {
+fn get_input(prompt: &str) -> Option<String> {
     let mut input = String::new();
 
     print!("  -> {}: ", prompt);
     io::stdout().flush().unwrap();
 
     match io::stdin().read_line(&mut input) {
-        Ok(_) => input.trim().to_string(),
-        Err(_) => "".to_string(),
+        Ok(1) | Err(_) => None,
+        Ok(_) => Some(input.trim().to_string()),
     }
 }
 
@@ -28,9 +28,9 @@ fn create_credential(conn: &SqliteConnection, new_credential: &NewCredential) ->
         .expect("Error saving new credential")
 }
 
-fn value_or_input<'a>(value: Option<&'a str>, prompt: &'a str) -> String {
+fn value_or_input<'a>(value: Option<&'a str>, prompt: &'a str) -> Option<String> {
     match value {
-        Some(v) => v.to_string(),
+        Some(v) => Some(v.to_string()),
         None => get_input(prompt),
     }
 }
@@ -44,8 +44,8 @@ pub fn command(conn: &SqliteConnection, args: &ArgMatches) {
     let new_credential = NewCredential {
         url: url,
         name: name,
-        username: &username,
-        password: &password,
+        username: username,
+        password: password,
     };
 
     create_credential(conn, &new_credential);
