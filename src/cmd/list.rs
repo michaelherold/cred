@@ -34,7 +34,7 @@ pub fn command(conn: &SqliteConnection, args: &ArgMatches) {
 
     println!("Listing {} credentials\n", credentials.len());
 
-    for credential in credentials.iter() {
+    for credential in &credentials {
         println!("{}", credential);
     }
 }
